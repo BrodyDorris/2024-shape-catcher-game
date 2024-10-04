@@ -8,7 +8,7 @@ export class Player {
         this.width = 75;
         this.height = 25;
 
-        this.speed = 1;
+        this.speed = 5;
 
         this.keyBindings = {
             up: "ArrowUp",
@@ -37,6 +37,15 @@ export class Player {
                 case this.keyBindings.up:
                     this.moveing.up = true;
                     break;
+                    case this.keyBindings.down:
+                    this.moveing.down = true;
+                    break;
+                    case this.keyBindings.left:
+                    this.moveing.left = true;
+                    break;
+                    case this.keyBindings.right:
+                    this.moveing.right = true;
+                    break;
         
             }
         });
@@ -57,7 +66,7 @@ export class Player {
                     case this.keyBindings.right:
                         this.moveing.right = false;
                         break;
-            });
+            }});
     }
 
     update() {
@@ -91,6 +100,22 @@ export class Player {
 
         this.x += this.speed * dirX;
         this.y += this.speed * dirY;
+
+      
+        if( this.x < 0) {
+            this.x = 0;
+        }
+  
+        if (this.y < 0) {
+            this.y = 0;
+        }
+        if (this.x + this.width > canvas.width) {
+            this.x = canvas.width - this.width;
+        }
+       
+        if (this.y + this.height > canvas.height) {
+            this.y = canvas.height - this.height;
+        }
     }
 
     draw() {

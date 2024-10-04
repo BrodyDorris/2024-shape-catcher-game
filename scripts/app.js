@@ -1,6 +1,23 @@
 //@ts-check
-import {canvas } from "./common/canvas.js";
+import {canvas, ctx } from "./common/canvas.js";
 import { Player } from "./player.js";
+import { SimpleGoodItem } from "./collectables/goog.js";
+
 
 let player = new Player();
-player.draw();
+
+let lastTimestamp = 0;
+
+function gameLoop(timestamp) {
+    let elapsedTime = timestamp-lastTimestamp;
+    lastTimestamp = timestamp;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    player.update();
+    player.draw();
+
+    window.requestAnimationFrame(gameLoop);
+}
+
+window.requestAnimationFrame(gameLoop);
