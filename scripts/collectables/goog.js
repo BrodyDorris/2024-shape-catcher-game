@@ -27,38 +27,41 @@ export class SimpleGoodItem extends CollectableItem {
   }
 
   update(elapsedTime) {
-if(!this.isColectable) {
-    return;
-}
+    if (!this.isColectable) {
+      return;
+    }
 
     this.lifeTime += elapsedTime;
 
     if (this.lifeTime < this.spawnInTime) {
       //we hav no full spawned in yet
       this.alpha = Math.floor((this.lifeTime / this.spawnInTime) * 100);
+      this.color = `hsla(112, 100%, 50%, ${this.alpha}%)`;
     }
 
     if (this.lifeTime > this.despawnTime - this.despawnWarningTime) {
       // start blinking
       //console.log("BLINK");
+
       this.blink.lastBlink += elapsedTime;
       if (this.blink.lastBlink > this.blink.interval) {
-        if (this.blink.isVisible) 
-            console.log("Blink ON");
-          this.alpha = 100;
-        } else {
-          console.log("NO BLINK");
+        if (this.blink.isVisible) {
+          console.log("Blink OFF");
+
           this.alpha = 0;
+        } else {
+          console.log("Blink on");
+          this.alpha = 100;
         }
         this.blink.lastBlink = 0;
         this.blink.isVisible = !this.blink.isVisible;
       }
 
-      if(this.lifeTime > this.despawnTime) {
+      if (this.lifeTime > this.despawnTime) {
         this.alpha = 0;
         this.isColectable = false;
       }
       this.color = `hsla(112, 100%, 50%, ${this.alpha}%)`;
     }
   }
-
+}
