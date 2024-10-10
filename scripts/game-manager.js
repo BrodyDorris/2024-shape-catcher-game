@@ -81,7 +81,7 @@ function squareColision(x1, y1, width, height, Player) {
     if(
         x1 + width >= Player.x&&
         x1 <= Player.x + Player.width&&
-        y1 + y1.height >= Player.y&&
+        y1 + height >= Player.y&&
         y1 <= Player.y + Player.height
     ){
         return true;
