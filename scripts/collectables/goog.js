@@ -11,9 +11,9 @@ export class SimpleGoodItem extends CollectableItem {
     this.despawnTime = 10 * 1000;
     this.spawnInTime = 5 * 1000;
     this.despawnWarningTime = 3 * 1000;
-
+    this.isColided = false;
     this.blink = {
-      interval: 500,
+      interval: 200,
       lastBlink: 0,
       isVisible: true,
     };
@@ -46,11 +46,11 @@ export class SimpleGoodItem extends CollectableItem {
       this.blink.lastBlink += elapsedTime;
       if (this.blink.lastBlink > this.blink.interval) {
         if (this.blink.isVisible) {
-          console.log("Blink OFF");
+          //console.log("Blink OFF");
 
           this.alpha = 0;
         } else {
-          console.log("Blink on");
+          //console.log("Blink on");
           this.alpha = 100;
         }
         this.blink.lastBlink = 0;
@@ -62,6 +62,9 @@ export class SimpleGoodItem extends CollectableItem {
         this.isColectable = false;
       }
       this.color = `hsla(112, 100%, 50%, ${this.alpha}%)`;
-    }
+      
+     
   }
 }
+    }
+
