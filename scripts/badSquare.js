@@ -1,5 +1,6 @@
 //@ts-check
 
+import { canvas, ctx } from "./common/canvas.js";
 export class BadSquare {
   constructor(x, y, ctx, canvas) {
     this.x = x;
@@ -21,16 +22,11 @@ export class BadSquare {
   update() {
     this.x += this.speedX * this.dirX;
     this.y += this.speedY * this.dirY;
-    this.hue++;
-
-    if (this.hue > 360) {
-      this.hue = 0;
-    }
 
     if (this.x < 0) {
       // offscreen left so move right
       this.dirX = 1;
-    } else if (this.x + this.width > this.canvas.width) {
+    } else if (this.x + this.width > canvas.width) {
       // offscreen right so move left
       this.dirX = -1;
     }
@@ -38,14 +34,15 @@ export class BadSquare {
     if (this.y < 0) {
       // offscreen top so move down
       this.dirY = 1;
-    } else if (this.y + this.height > this.canvas.height) {
+    } else if (this.y + this.height > canvas.height) {
       // offscreen bottom so move up
       this.dirY = -1;
     }
   }
 
   draw() {
-    this.ctx.fillStyle = `hsla(0, 100%, 50%, 100%)`;
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = `hsla(0, 100%, 50%, 100%)`;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    console.log("test");
   }
 }

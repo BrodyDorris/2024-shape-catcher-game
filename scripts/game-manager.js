@@ -55,12 +55,11 @@ export class GameManager {
         //console.log("Console.log");
         c.width = 0;
         c.height = 0;
+        const s1 = new BadSquare(sx, sy, ctx, canvas);
+        s1.draw();
         if (document.getElementById("total-collected")) {
           document.getElementById("total-collected").innerText =
             this.colectables.filter((c) => c.height === 0).length;
-          let badSquareNumber = this.colectables.filter(
-            (c) => c.height === 0
-          ).length;
         }
       }
     });
@@ -81,6 +80,19 @@ export class GameManager {
     }
   }
 
+  badSpawner(elapsedTime) {
+    if (this.goodSpawn.lastTime > this.goodSpawn.nextTime) {
+      //spawn a good shape
+      const buffer = 50;
+      const sx = rand(buffer, canvas.width - buffer);
+      const sy = rand(buffer, canvas.height - buffer);
+      const item = SimpleGoodItem(sx, sy);
+      this.colectables.push(item);
+      this.goodSpawn.Next();
+      //debugger
+    }
+  }
+
   draw() {
     this.players.forEach((p) => {
       p.draw();
@@ -88,6 +100,10 @@ export class GameManager {
 
     this.colectables.forEach((c) => {
       c.draw();
+    });
+
+    this.enemies.forEach((s) => {
+      s.draw();
     });
   }
 }
@@ -126,3 +142,28 @@ function squareColision(
     return true;
   }
 }
+
+let lastTime = 0;
+
+function drawLoop(timestamp, ctx, canvas) {
+  let elapsedTime = timestamp - lastTime;
+  lastTime = timestamp;
+
+  for (let i = 0; i < 100; i++) {
+    let enemies = [];
+    enemies.push(new BadSquare(0, 0, ctx, canvas));
+
+    for (const shape of enemies) {
+      shape.update();
+      shape.draw();
+
+      enemies.forEach.draw();
+      enemies.forEach.update();
+    }
+
+    window.requestAnimationFrame(drawLoop);
+  }
+
+  window.requestAnimationFrame(drawLoop);
+}
+window.requestAnimationFrame(drawLoop);

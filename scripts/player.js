@@ -5,8 +5,8 @@ export class Player {
   constructor(x = 0, y = 0) {
     this.x = x;
     this.y = y;
-    this.width = 75;
-    this.height = 25;
+    this.width = 50;
+    this.height = 50;
 
     this.speed = 5;
 
