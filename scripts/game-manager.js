@@ -85,17 +85,18 @@ function rand(min, max) {
   return r;
 }
 
-function squareColision(x1, y1, width, height, Player, CollectableItem) {
+function squareColision(x1, y1, width, height, Player, CollectableItem, sx, sy) {
   if (
     x1 + width >= Player.x &&
     x1 <= Player.x + Player.width &&
     y1 + height >= Player.y &&
     y1 <= Player.y + Player.height
   ) {
+    console.log({ CollectableItem });
     CollectableItem.isVisible = false;
     CollectableItem.isColectable = false;
-    console.log("COLIOCSION DETEEICTERD");
-    console.log({ CollectableItem });
+    console.log("COLLISION DETECTED");
+    
     console.log({ CollectableItem });
     return true;
   }
