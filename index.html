@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="css/site.css" />
-		<title>Shape Catcher</title>
-	</head>
-	<body>
-		<canvas id="game-canvas"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/site.css" />
+    <title>Shape Catcher</title>
+  </head>
+  <body>
+    <h1 id="total-collected" style="color: white; margin-left: 20px">0</h1>
+    <canvas id="game-canvas"></canvas>
 
-		<script>
-			// this script will set our canvas to take up the full
-			// browser window and handle window resizes for us
+    <script>
+      // this script will set our canvas to take up the full
+      // browser window and handle window resizes for us
 
-			const canvas = document.getElementById("game-canvas");
+      const canvas = document.getElementById("game-canvas");
 
-			function resize() {
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
-				//console.log(canvas.width, canvas.height);
-			}
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        //console.log(canvas.width, canvas.height);
+      }
 
-			resize();
+      resize();
 
-			window.addEventListener("resize", resize);
-		</script>
+      window.addEventListener("resize", resize);
+    </script>
 
-		<script type="module" src="scripts/app.js"></script>
-
-	</body>
+    <script type="module" src="scripts/app.js"></script>
+  </body>
 </html>

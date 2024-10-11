@@ -1,8 +1,9 @@
 //@ts-check
 
+import { BadSquare } from "./badSquare.js";
 import { CollectableItem } from "./collectables/colectablebase.js";
 import { SimpleGoodItem } from "./collectables/goog.js";
-import { canvas } from "./common/canvas.js";
+import { canvas, ctx } from "./common/canvas.js";
 import { Player } from "./player.js";
 
 export class GameManager {
@@ -50,6 +51,18 @@ export class GameManager {
         this.players[0],
         CollectableItem
       );
+      if (isColliding) {
+        //console.log("Console.log");
+        c.width = 0;
+        c.height = 0;
+        if (document.getElementById("total-collected")) {
+          document.getElementById("total-collected").innerText =
+            this.colectables.filter((c) => c.height === 0).length;
+          let badSquareNumber = this.colectables.filter(
+            (c) => c.height === 0
+          ).length;
+        }
+      }
     });
   }
 
@@ -85,19 +98,31 @@ function rand(min, max) {
   return r;
 }
 
-function squareColision(x1, y1, width, height, Player, CollectableItem, sx, sy) {
+function squareColision(
+  x1,
+  y1,
+  width,
+  height,
+  Player,
+  CollectableItem,
+  sx,
+  sy
+) {
   if (
     x1 + width >= Player.x &&
     x1 <= Player.x + Player.width &&
     y1 + height >= Player.y &&
     y1 <= Player.y + Player.height
   ) {
-    console.log({ CollectableItem });
-    CollectableItem.isVisible = false;
-    CollectableItem.isColectable = false;
-    console.log("COLLISION DETECTED");
-    
-    console.log({ CollectableItem });
+    //console.log({ CollectableItem });
+
+    //CollectableItem.width = 0;
+    //CollectableItem.height = 0;
+    // CollectableItem.isColectable = false;
+    // console.log("COLLISION DETECTED");
+    // this.colectables = [];
+
+    //console.log({ CollectableItem });
     return true;
   }
 }
