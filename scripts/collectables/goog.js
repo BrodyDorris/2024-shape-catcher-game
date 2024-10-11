@@ -62,9 +62,6 @@ export class SimpleGoodItem extends CollectableItem {
         this.isColectable = false;
       }
       this.color = `hsla(112, 100%, 50%, ${this.alpha}%)`;
-      
-     
+    }
   }
 }
-    }
-

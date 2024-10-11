@@ -1,5 +1,6 @@
 //@ts-check
 
+import { CollectableItem } from "./collectables/colectablebase.js";
 import { SimpleGoodItem } from "./collectables/goog.js";
 import { canvas } from "./common/canvas.js";
 import { Player } from "./player.js";
@@ -15,10 +16,10 @@ export class GameManager {
     this.goodSpawn = {
       lastTime: 0,
       nextTime: 0,
-     
-      Next: function (){
-       this.lastTime = 0; 
-        this.nextTime = rand(5 * 1000,10 * 1000);
+
+      Next: function () {
+        this.lastTime = 0;
+        this.nextTime = rand(5 * 1000, 10 * 1000);
       },
     };
 
@@ -41,22 +42,29 @@ export class GameManager {
 
     this.colectables.forEach((c) => {
       c.update(elapsedTime);
-      let isColliding = squareColision(c.x, c.y, c.width, c.height, this.players[0])
+      let isColliding = squareColision(
+        c.x,
+        c.y,
+        c.width,
+        c.height,
+        this.players[0],
+        CollectableItem
+      );
     });
   }
 
   spawner(elapsedTime) {
- this.goodSpawn.lastTime+= elapsedTime;
+    this.goodSpawn.lastTime += elapsedTime;
 
-    if(this.goodSpawn.lastTime > this.goodSpawn.nextTime) {
-       //spawn a good shape
-       const buffer = 50;
-       const sx = rand(buffer, canvas.width-buffer);
-       const sy = rand(buffer, canvas.height-buffer);
-       const item = new SimpleGoodItem(sx,sy);
-       this.colectables.push(item);
-       this.goodSpawn.Next();
-       //debugger
+    if (this.goodSpawn.lastTime > this.goodSpawn.nextTime) {
+      //spawn a good shape
+      const buffer = 50;
+      const sx = rand(buffer, canvas.width - buffer);
+      const sy = rand(buffer, canvas.height - buffer);
+      const item = new SimpleGoodItem(sx, sy);
+      this.colectables.push(item);
+      this.goodSpawn.Next();
+      //debugger
     }
   }
 
@@ -77,14 +85,18 @@ function rand(min, max) {
   return r;
 }
 
-function squareColision(x1, y1, width, height, Player) {
-    if(
-        x1 + width >= Player.x&&
-        x1 <= Player.x + Player.width&&
-        y1 + height >= Player.y&&
-        y1 <= Player.y + Player.height
-    ){
-        return true;
-        console.log("COLIOCSION DETEEICTERD")
-    }
+function squareColision(x1, y1, width, height, Player, CollectableItem) {
+  if (
+    x1 + width >= Player.x &&
+    x1 <= Player.x + Player.width &&
+    y1 + height >= Player.y &&
+    y1 <= Player.y + Player.height
+  ) {
+    CollectableItem.isVisible = false;
+    CollectableItem.isColectable = false;
+    console.log("COLIOCSION DETEEICTERD");
+    console.log({ CollectableItem });
+    console.log({ CollectableItem });
+    return true;
+  }
 }
